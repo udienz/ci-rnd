@@ -8,23 +8,25 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: "100"))
     timeout(time: 2, unit: "HOURS")
   }
-
-stages {
-  stage("Deploy"){
-    if(env.BRANCH_NAME == 'main'){
-      steps {
-        echo 'This is main branch'
-        sh 'docker pull udienz/docker-ansible:jammy'
-      }
+    stages {
+        stage('Hello') {
+            steps {
+                script {
+                    if (env.BRANCH_NAME == 'main') 
+                        {
+                        echo 'Hello from main branch'
+                        }
+                    if (env.BRANCH_NAME == 'null') 
+                        {
+                        echo 'Hello from null branch'
+                        }
+                    else {
+                        sh "echo 'Hello from ${env.BRANCH_NAME} branch!'"
+                        }
+                    }
+            }
+        }
     }
-    if(env.BRANCH_NAME != 'main'){
-      steps {
-        echo 'This is not main branch'
-        sh 'docker pull udienz/docker-ansible:focal'
-      }
-    }
-  }
-}
   post {
     always {
       deleteDir()
