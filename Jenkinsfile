@@ -13,16 +13,16 @@ pipeline {
             steps {
                 sh 'printenv | sort'
                 script {
-                    if (env.BRANCH_NAME == 'main') 
+                    if (env.GIT_BRANCH == 'main') 
                         {
                         echo 'Hello from main branch'
                         }
-                    if (env.BRANCH_NAME == 'null') 
+                    if (env.GIT_BRANCH == 'null') 
                         {
                         echo 'Hello from null branch'
                         }
                     else {
-                        sh "echo 'Hello from ${env.BRANCH_NAME} branch!'"
+                        sh "echo 'Hello from ${env.GIT_BRANCH} branch!'"
                         }
                     }
             }
