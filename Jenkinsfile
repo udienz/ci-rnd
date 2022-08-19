@@ -13,13 +13,13 @@ pipeline {
     if(env.BRANCH_NAME == 'main'){
       steps {
         echo 'This is main branch'
-        sh 'docker pull udienz/docker-ansible:jammy
+        sh 'docker pull udienz/docker-ansible:jammy'
       }
     }
     if(env.BRANCH_NAME != 'main'){
       steps {
         echo 'This is not main branch'
-        sh 'docker pull udienz/docker-ansible:focal
+        sh 'docker pull udienz/docker-ansible:focal'
       }
     }
   }
