@@ -9,6 +9,7 @@ pipeline {
     timeout(time: 2, unit: "HOURS")
   }
 
+stages {
   stage("Deploy"){
     if(env.BRANCH_NAME == 'main'){
       steps {
@@ -23,7 +24,7 @@ pipeline {
       }
     }
   }
-
+}
   post {
     always {
       deleteDir()
