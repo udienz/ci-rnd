@@ -9,29 +9,20 @@ pipeline {
     timeout(time: 2, unit: "HOURS")
   }
 
-  stages {
-    stage("run if branch is master"){
-      when {
-        expression { env.BRANCH_NAME == 'master' }
-      }
+  stage("Deploy"){
+    if(env.BRANCH_NAME == 'main'){
       steps {
-        bitbucketStatusNotify(buildState: 'INPROGRESS')
-        sh 'docker pull udienz/docker-ansible:jammy'
-      } // steps
-    } // stage      
-  } // stages
-
-  stages {
-    stage("run if branch is not a master"){
-      when {
-        expression { env.BRANCH_NAME != 'master' }
+        echo 'This is main branch'
+        sh 'docker pull udienz/docker-ansible:jammy
       }
+    }
+    if(env.BRANCH_NAME != 'main'){
       steps {
-        bitbucketStatusNotify(buildState: 'INPROGRESS')
-        sh 'docker pull ubuntu:jammy'
-      } // steps
-    } // stage      
-  } // stages
+        echo 'This is not main branch'
+        sh 'docker pull udienz/docker-ansible:focal
+      }
+    }
+  }
 
   post {
     always {
