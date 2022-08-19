@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh 'printenv | sort'
                 script {
-                    if (env.GIT_BRANCH == 'main') 
+                    if (env.GIT_BRANCH == 'origin/main') 
                         {
                         echo 'Hello from main branch'
                         sh 'docker pull udienz/docker-ansible:jammy'
