@@ -39,9 +39,9 @@ pipeline {
               sh 'bash scripts/failure.sh'
         }
     }
-    always {
-        deleteDir()
-    }
+    //always {
+    //    deleteDir()
+    //}
 
   } // eol post
 }
