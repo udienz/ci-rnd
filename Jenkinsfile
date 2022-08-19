@@ -11,6 +11,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
+                sh 'printenv | sort'
                 script {
                     if (env.BRANCH_NAME == 'main') 
                         {
