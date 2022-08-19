@@ -30,6 +30,23 @@ pipeline {
                     }
             }
         }
+        stage('Deploy') {
+            pararel {
+                stage("main") {
+                    when { expression { env.GIT_BRANCH == 'origin/main' } }
+                    steps {
+                            echo "This is origin/main"
+                        }
+                }
+                stage("not main) {
+
+                    when { expression { env.GIT_BRANCH != 'origin/main' } }
+                    steps {
+                            echo "This is not origin/main"
+                    }
+                }
+            }
+        }
     }
   post {
     always {
