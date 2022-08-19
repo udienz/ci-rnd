@@ -29,9 +29,6 @@ pipeline {
         }
     }
   post {
-    always {
-      deleteDir()
-    } // eol always
     success {
         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
               sh 'bash scripts/success.sh'
@@ -41,6 +38,9 @@ pipeline {
         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
               sh 'bash scripts/failure.sh'
         }
+    }
+    always {
+        deleteDir()
     }
 
   } // eol post
