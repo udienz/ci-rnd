@@ -34,18 +34,20 @@ pipeline {
     } // eol always
     success {
         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
-              curl "https://api.GitHub.com/repos/udienz/ci-rnd/statuses/$GIT_COMMIT?access_token=$GITHUB_TOKEN" \
+              sh 'curl "https://api.GitHub.com/repos/udienz/ci-rnd/statuses/$GIT_COMMIT?access_token=$GITHUB_TOKEN" \
               -H "Content-Type: application/json" \
               -X POST \
               -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL/job/<JenkinsProjectName>/$BUILD_NUMBER/console\"}" 
+              '
         }
     }
     failure {
         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
-              curl "https://api.GitHub.com/repos/udienz/ci-rnd/statuses/$GIT_COMMIT?access_token=$GITHUB_TOKEN" \
+              sh 'curl "https://api.GitHub.com/repos/udienz/ci-rnd/statuses/$GIT_COMMIT?access_token=$GITHUB_TOKEN" \
               -H "Content-Type: application/json" \
               -X POST \
-              -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL/job/<JenkinsProjectName>/$BUILD_NUMBER/console\"}" 
+              -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL/job/<JenkinsProjectName>/$BUILD_NUMBER/console\"}"
+              '
         }
     }
 
