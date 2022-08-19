@@ -10,7 +10,7 @@ pipeline {
   }
 
   stages {
-    stage("check branch"){
+    stage("run if branch is master"){
       when {
         expression { env.BRANCH_NAME == 'master' }
       }
@@ -20,6 +20,19 @@ pipeline {
       } // steps
     } // stage      
   } // stages
+
+  stages {
+    stage("run if branch is not a master"){
+      when {
+        expression { env.BRANCH_NAME != 'master' }
+      }
+      steps {
+        bitbucketStatusNotify(buildState: 'INPROGRESS')
+        sh 'docker pull ubuntu:jammy'
+      } // steps
+    } // stage      
+  } // stages
+
   post {
     always {
       deleteDir()
