@@ -11,6 +11,11 @@ pipeline {
     stages {
         stage('Deploy') {
             parallel {
+                stage("") {
+                    steps {
+                        sh 'bash scripts/inprogress.sh'
+                    }
+                }
                 stage("main") {
                     when { expression { env.GIT_BRANCH == 'origin/main' } }
                     steps {
@@ -34,7 +39,7 @@ pipeline {
               sh 'bash scripts/success.sh'
         }
     }
-    failure {
+    unsuccessful {
         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
               sh 'bash scripts/failure.sh'
         }
