@@ -31,7 +31,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            pararel {
+            parallel {
                 stage("main") {
                     when { expression { env.GIT_BRANCH == 'origin/main' } }
                     steps {
