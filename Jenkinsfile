@@ -16,13 +16,16 @@ pipeline {
                     if (env.GIT_BRANCH == 'main') 
                         {
                         echo 'Hello from main branch'
+                        sh 'docker pull udienz/docker-ansible:jammy'
                         }
                     if (env.GIT_BRANCH == 'null') 
                         {
                         echo 'Hello from null branch'
+                        sh 'docker pull udienz/docker-ansible:focal'
                         }
                     else {
                         sh "echo 'Hello from ${env.GIT_BRANCH} branch!'"
+                        sh 'docker pull udienz/docker-ansible:centos7'
                         }
                     }
             }
