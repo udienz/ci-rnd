@@ -13,7 +13,9 @@ pipeline {
             parallel {
                 stage("") {
                     steps {
-                        sh 'bash scripts/inprogress.sh'
+                        withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
+                          sh 'bash scripts/inprogress.sh'
+                        }
                     }
                 }
                 stage("main") {
