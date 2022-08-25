@@ -20,7 +20,7 @@ pipeline {
                             -H "Authorization: token $GITHUB_TOKEN" \
                             -H "Accept: application/vnd.github+json" \
                             -X POST \
-                            -d "{\"state\": \"pending\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\"}"
+                            -d "{\"state\": \"pending\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"$BUILD_URL\"}"
                           '''
                         }
                     }
@@ -51,7 +51,7 @@ pipeline {
                     -H "Authorization: token $GITHUB_TOKEN" \
                     -H "Accept: application/vnd.github+json" \
                     -X POST \
-                    -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\"}"
+                    -d "{\"state\": \"pending\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"$BUILD_URL\"}"
                 '''
         }
     }
@@ -63,7 +63,7 @@ pipeline {
                     -H "Authorization: token $GITHUB_TOKEN" \
                     -H "Accept: application/vnd.github+json" \
                     -X POST \
-                    -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\"}"
+                    -d "{\"state\": \"pending\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"$BUILD_URL\"}"
                 '''
         }
     }
