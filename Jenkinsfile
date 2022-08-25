@@ -14,7 +14,7 @@ pipeline {
                 stage("") {
                     steps {
                         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
-                          sh '''!#/bin/bash
+                          sh '''
                           curl "https://api.GitHub.com/repos/udienz/ci-rnd/statuses/$GIT_COMMIT" \
                             -H "Content-Type: application/json" \
                             -H "Authorization: token $GITHUB_TOKEN" \
@@ -45,7 +45,7 @@ pipeline {
   post {
     success {
         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
-              sh '''!#/bin/bash
+              sh '''
                   curl "https://api.GitHub.com/repos/udienz/ci-rnd/statuses/$GIT_COMMIT" \
                     -H "Content-Type: application/json" \
                     -H "Authorization: token $GITHUB_TOKEN" \
@@ -57,7 +57,7 @@ pipeline {
     }
     unsuccessful {
         withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
-              sh '''!#/bin/bash
+              sh '''
                   curl "https://api.GitHub.com/repos/udienz/ci-rnd/statuses/$GIT_COMMIT" \
                     -H "Content-Type: application/json" \
                     -H "Authorization: token $GITHUB_TOKEN" \
