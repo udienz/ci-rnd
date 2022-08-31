@@ -9,29 +9,27 @@ pipeline {
     timeout(time: 2, unit: "HOURS")
   }
     stages {
-        stage('Deploy') {
-            parallel {
-                stage("") {
-                    steps {
-                        withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
-                          sh 'bash scripts/inprogress.sh'
-                        }
-                    }
+        stage("publish status") {
+            steps {
+                withCredentials([string(credentialsId: 'bde8f904-5da4-459b-b8c6-844281315ff7', variable: 'GITHUB_TOKEN')]) {
+                  sh 'bash scripts/inprogress.sh'
                 }
-                stage("main") {
-                    when { expression { env.GIT_BRANCH == 'origin/main' } }
-                    steps {
-                          sh 'printenv | sort'
-                          echo "This is origin/main"
-                        }
+            }
+        }
+        stage("main") {
+        // check if the current branch is main
+            when { expression { env.GIT_BRANCH == 'origin/main' } }
+            steps {
+                  sh 'printenv | sort'
+                  echo "This is origin/main"
                 }
-                stage("not main") {
-                    when { expression { env.GIT_BRANCH != 'origin/main' } }
-                    steps {
-                          sh 'printenv | sort'
-                          echo "This is not origin/main"
-                    }
-                }
+        }
+        stage("not main") {
+        // check if the current branch is not main
+            when { expression { env.GIT_BRANCH != 'origin/main' } }
+            steps {
+                  sh 'printenv | sort'
+                  echo "This is not origin/main"
             }
         }
     }
@@ -46,9 +44,5 @@ pipeline {
               sh 'bash scripts/failure.sh'
         }
     }
-    //always {
-    //    deleteDir()
-    //}
-
   } // eol post
 }
