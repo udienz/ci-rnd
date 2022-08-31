@@ -8,6 +8,9 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: "100"))
     timeout(time: 2, unit: "HOURS")
   }
+  environment {
+      REPOS = 'udienz/ci-rnd'
+  }
     stages {
         stage("publish status") {
             steps {
